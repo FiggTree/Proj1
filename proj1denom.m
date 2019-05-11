@@ -41,15 +41,6 @@ legend('H_2 vs H_2O','maximum')
 title('Final Mole Fraction H_2 produced versus Initial Mole Fraction H_2O')
 
 figure
-plot(H2Omolamt,H2molamt./9,'r',H2Omolamt,H2molfrac,'b')
-hold on
-ylim([0 0.18]);
-xlabel('Mole Fraction of H_2O')
-ylabel('H_2 Amount and Fraction')
-legend('H_2 Mole Amount (scaled)','H_2 Mole Fraction')
-title('Comparison of H_2 Amount and Fraction versus Initial H_2O')
-
-figure
 o1=plot(H2Omolamt,extent(:,1));
 c1=o1.Color;
 o1.Color=[0.6350 0.0780 0.1840];
@@ -75,12 +66,20 @@ lll=[ 'The extents of reaction at this time are e1=', num2str(extentr1),' and e2
 disp(l) 
 disp(ll)
 disp(lll)
+
 sz=[1,5];
 vartypes={'double','double','double','double','double'};
 varnames={'CH4','H2O','H2','CO','CO2'};
 Equlibrium_Gas_Concentrations=table('Size',sz,'VariableTypes',vartypes,'VariableNames',varnames);
 Equlibrium_Gas_Concentrations(1,:)={CH4molfrac(f,1),H2Omolfrac(f,1),H2molfrac(f,1),COmolfrac(f,1),CO2molfrac(f,1)}
 
+figure
+plot3(H2Omolamt./10,CH4molamt./10,H2molfrac)
+hold on
+xlabel('H_2O mol fraction in')
+ylabel('CH_4 mol fraction in')
+zlabel('H_2 mol fraction out')
+title('Moles of reactants put in versus H2 produced')
 
 function k1 = K1(e1,e2,molh2o)
 if molh2o>10 || molh2o<0
@@ -90,6 +89,7 @@ else
     k1=((((Yco(e1,e2)).*((Yh2(e1,e2)).^3).*((10+2.*e1).^2)./((Ych4(e1,e2,(10-molh2o))).*(Yh2o(e1,e2,molh2o)))))-(1.93.*10.^(-4)));
 end
 end
+
 function k2 = K2(e1,e2,molh2o)
 if molh2o>10 || molh2o<0
     disp('ERROR: mols of h2o exceeds basis range of 0-10')
@@ -98,18 +98,23 @@ else
     k2=(((Yco2(e1,e2)).*(Yh2(e1,e2)))./((Yco(e1,e2)).*(Yh2o(e1,e2,molh2o))))-5.528;
 end
 end
+
 function yh2o = Yh2o(e1,e2,molh2o)
 yh2o=((molh2o-e1-e2)./(10+2.*e1));
 end
+
 function ych4 = Ych4(e1,e2,molch4)
 ych4=((molch4-e1)./(10+2.*e1));
 end
+
 function yh2 = Yh2(e1,e2)
 yh2=((3.*e1+e2)./(10+2.*e1));
 end
+
 function yco = Yco(e1,e2)
 yco=((e1-e2)./(10+2.*e1));
 end
+
 function yco2 = Yco2(e1,e2)
 yco2=(e2./(10+2.*e1));
 end
