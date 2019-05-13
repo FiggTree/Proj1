@@ -1,2 +1,0 @@
-function Yh2o = Yh2o(e1,e2,molh2o)
-Yh2o=((molh2o-e1-e2)./(10+2.*e1));
