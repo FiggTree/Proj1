@@ -1,2 +1,0 @@
-function Yco = Yco(e1,e2)
-Yco=((e1-e2)./(10+2.*e1));
