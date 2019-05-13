@@ -1,2 +1,0 @@
-function Yco2 = Yco2(e1,e2)
-Yco2=(e2./(10+2.*e1));
