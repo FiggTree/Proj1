@@ -1,2 +1,0 @@
-function Ych4 = Ych4(e1,e2,molch4)
-Ych4=((molch4-e1)./(10+2.*e1));
