@@ -1,7 +1,0 @@
-function k2 = K2(e1,e2,molh2o)
-if molh2o>10 || molh2o<0
-    disp('ERROR: mols of h2o exceeds basis range of 0-10')
-    return
-else
-    k2=(((Yco2(e1,e2)).*(Yh2(e1,e2)))./((Yco(e1,e2)).*(Yh2o(e1,e2,molh2o))))-5.528;
-end
